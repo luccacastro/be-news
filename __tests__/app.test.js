@@ -20,6 +20,7 @@ describe('Topics endpoints', ()=>{
      supertest(app).get('/api/topics').expect(200)
         .then(res => {
             expect(res.body[0].slug).toEqual(expect.any(String))
+            expect(res.body[0].description).toEqual(expect.any(String))
                 
             expect(res.body).toStrictEqual(apiRes)
             expect(res.body).toHaveLength(3)
