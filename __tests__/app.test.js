@@ -12,14 +12,14 @@ const supertest = require('supertest')
 
 describe('Topics endpoints', ()=>{
     test('GET /api/topics should return a json containing all topics with status 200', async ()=>{
-        const apiRes = [ { slug: 'coding', description: 'Code is love, code is life' },
+        const apiRes = {"topics": [ { slug: 'coding', description: 'Code is love, code is life' },
         { slug: 'football', description: 'FOOTIE!' },
         { slug: 'cooking',
-          description: 'Hey good looking, what you got cooking?' }]
+          description: 'Hey good looking, what you got cooking?' }]}
         
      supertest(app).get('/api/topics').expect(200)
         .then(res => {
-            res.body.forEach(item => {
+            Array.from(res.body).forEach(item => {
                 expect(item.slug).toEqual(expect.any(String))
                 expect(item.description).toEqual(expect.any(String))
             })
