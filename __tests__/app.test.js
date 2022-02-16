@@ -12,7 +12,7 @@ const supertest = require('supertest')
 
 describe('Topics endpoints', ()=>{
     test('GET /api/topics should return a json containing all topics with status 200', async ()=>{
-        const apiRes = {"topics": [ { slug: 'coding', description: 'Code is love, code is life' },
+        const apiRes = {topics: [ { slug: 'coding', description: 'Code is love, code is life' },
         { slug: 'football', description: 'FOOTIE!' },
         { slug: 'cooking',
           description: 'Hey good looking, what you got cooking?' }]}
@@ -25,7 +25,10 @@ describe('Topics endpoints', ()=>{
             })
            
                 
-            expect(res.body).toStrictEqual(apiRes)
+            expect(res.body).toStrictEqual({topics: [ { slug: 'coding', description: 'Code is love, code is life' },
+            { slug: 'football', description: 'FOOTIE!' },
+            { slug: 'cooking',
+              description: 'Hey good looking, what you got cooking?' }]})
             expect(res.body).toHaveLength(3)
         })
         // app.clo
