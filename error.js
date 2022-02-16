@@ -3,10 +3,25 @@ exports.handlePsqlError = (err, req,res, next) => {
     else next(err)
 }
 
-exports.invalidRouteHandler = (req,res,next) => {
-    console.log("sfsdfasdf")
-    // console.log(err, 'asddfsd')
-   
-    res.status(404).send({error:"Route doesn't exist"})
+exports.invalidRouteHandler = (err,req,res,next) => {
+    if(err.status == 404){
+        res.status(404).send({error:"Route doesn't exist"})
+    }else{
+        next(err)
+    }
     
+    
+}
+
+exports.getServerErrorHandler = (err,req,res,next) =>{
+        if(err){
+            res.status(err.status || 500);
+            res.send({
+            message: err.message
+            });
+            // console.log(err)
+        }else{
+            next(err)
+        }
+        
 }

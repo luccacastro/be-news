@@ -1,17 +1,30 @@
 const app = require('../app')
 const supertest = require('supertest')
 
+// beforeAll(done => {
+//     done()
+//   })
+
+// afterAll(done => {
+//     app.close();
+//     done();
+// });
+
 describe('Topics endpoints', ()=>{
     test('GET /api/topics should return a json containing all topics with status 200', async ()=>{
-        let apiRes = [ { slug: 'coding', description: 'Code is love, code is life' },
+        const apiRes = [ { slug: 'coding', description: 'Code is love, code is life' },
         { slug: 'football', description: 'FOOTIE!' },
         { slug: 'cooking',
           description: 'Hey good looking, what you got cooking?' }]
         
-        await supertest(app).get('/api/topics')
-                .expect(200)
-                .then(res => {
-                    expect(res.body).toStrictEqual(apiRes)
-                })
+     supertest(app).get('/api/topics').expect(200)
+        .then(res => {
+            expect(res.body[0].slug).toEqual(expect.any(String))
+                
+            expect(res.body).toStrictEqual(apiRes)
+            expect(res.body).toHaveLength(3)
+        })
+        // app.clo
     })
+
 })

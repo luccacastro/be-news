@@ -2,9 +2,9 @@
 const { getAllTopics } = require('../models/topics')
 
 exports.getTopics = (req,res) => {
-    return getAllTopics().then(data => {
-        console.log(data.rows)
-        res.send(data.rows)
+        return getAllTopics().then(data => {
+        // console.log(data.rows)
+        res.send(data)
     })
 }
 
