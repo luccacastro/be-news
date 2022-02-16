@@ -1,9 +1,7 @@
 const express = require('express')
-const { getTopics, getArticles } = require('./controllers/topics-controller')
-const getUsers = require('./controllers/users-controller')
+const { getTopics } = require('./controllers/topics-controller')
+// const getUsers = require('./controllers/users-controller')
 const {invalidRouteHandler, getServerErrorHandler} = require('./error')
-const bodyParser = require('body-parser');
-// const methodOverride = require('method-override');
 
 const app = express()
 
@@ -14,7 +12,7 @@ app.get('/api/topics', getTopics)
 // app.get('/api/articles', getArticles)
 
 app.use(invalidRouteHandler)
-// app.use(getServerErrorHandler);
+app.use(getServerErrorHandler);
 // app.use('/*', )
 
 

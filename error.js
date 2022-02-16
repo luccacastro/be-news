@@ -4,13 +4,7 @@ exports.handlePsqlError = (err, req,res, next) => {
 }
 
 exports.invalidRouteHandler = (err,req,res,next) => {
-    if(err.status == 404){
-        res.status(404).send({error:"Route doesn't exist"})
-    }else{
-        next(err)
-    }
-    
-    
+    res.status(404).send({error:"Route doesn't exist"})
 }
 
 exports.getServerErrorHandler = (err,req,res,next) =>{
