@@ -1,37 +1,45 @@
 const app = require('../app')
-const supertest = require('supertest')
+const request = require('supertest')
+const data = require('../db/data/test-data');
+const seed = require('../db/seeds/seed');
+const db = require('../db/connection');
 
-// beforeAll(done => {
-//     done()
-//   })
 
-// afterAll(done => {
-//     app.close();
-//     done();
-// });
+beforeAll(done => { 
+seed({data})
+    done()
+})
+
 
 describe('Topics endpoints', ()=>{
-    test('GET /api/topics should return a json containing all topics with status 200', async ()=>{
-        // const apiRes = {topics: [ { slug: 'coding', description: 'Code is love, code is life' },
-        // { slug: 'football', description: 'FOOTIE!' },
-        // { slug: 'cooking',
-        //   description: 'Hey good looking, what you got cooking?' }]}
-        
-     supertest(app).get('/api/topics').expect(200)
+    test('GET /api/topics should return a json containing all topics with status 200', ()=>{    
+    request(app).get('/api/topics').expect(200)
         .then(res => {
-            Array.from(res.body).forEach(item => {
+            res.body.topics.forEach(item => {
                 expect(item.slug).toEqual(expect.any(String))
                 expect(item.description).toEqual(expect.any(String))
             })
-           
-                
-            // expect(res.body).toStrictEqual({topics: [ { slug: 'coding', description: 'Code is love, code is life' },
-            // { slug: 'football', description: 'FOOTIE!' },
-            // { slug: 'cooking',
-            //   description: 'Hey good looking, what you got cooking?' }]})
-            expect(res.body).toHaveLength(3)
+            expect(res.body.topics).toHaveLength(3)
         })
         // app.clo
     })
 
+    test('GET /api/articles/:articles_id should return a response with 200 OK status', ()=>{    
+        request(app).get('/api/articles/2').expect(200)
+            .then(res => {
+                res.body.articles.forEach(item => {
+                    expect(item.article_id).toEqual(expect.any(Number))
+                    expect(item.title).toEqual(expect.any(String))
+                    expect(item.topic).toEqual(expect.any(String))
+                    expect(item.author).toEqual(expect.any(String))
+                    expect(item.body).toEqual(expect.any(String))
+                    expect(item.created_at).toEqual(expect.any(String))
+                })
+                expect(res.body.articles).toHaveLength(1)
+            })
+            
+            // app.clo
+        })
+    
+       
 })
