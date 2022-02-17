@@ -35,7 +35,7 @@ describe('Topics endpoints', ()=>{
                     expect(item.body).toEqual(expect.any(String))
                     expect(item.created_at).toEqual(expect.any(String))
                 })
-                expect(res.body).toHaveLength(1)
+                expect(res.body.articles).toHaveLength(1)
             })
             
             // app.clo
