@@ -3,7 +3,8 @@ const { getAllTopics } = require('../models/topics')
 
 exports.getTopics = (req,res) => {
         return getAllTopics().then(data => {
-        res.send({topics: data})
+            // console.log(data)
+            res.send({topics: data})
     })
 }
 
